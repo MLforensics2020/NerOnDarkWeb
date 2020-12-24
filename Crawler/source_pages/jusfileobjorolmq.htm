@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<link href="ij.png" rel="icon" type="image/png"/>
+<title>Just upload stuff.</title>
+<style>
+			html, body {
+				height: 100%;
+			}
+
+			body {
+				font-family: sans-serif;
+				margin: auto;
+				width: 30%;
+				min-width: 600px;
+				background: #555;
+				color: #DDD;
+				text-shadow: 1px 1px black;
+				text-align: center;
+				display: flex;
+				flex-direction: column;
+			}
+
+			a {
+				color: #ABCDEF;
+			}
+
+			a:hover {
+				color: #ABCDEF;
+				text-decoration: none;
+			}
+
+			li {
+				list-style-type: none;
+			}
+
+			#errors {
+				color: #FEDCBA;
+			}
+
+			#uploaded ul, #errors ul {
+				display: inline-block;
+				text-align: left;
+				padding: 0;
+				margin-top: 0;
+			}
+
+			#file-input {
+				cursor: inherit;
+				display: block;
+				position: absolute;
+				right: 0;
+				top: 0;
+				left: -1px;
+				height: 100%;
+				width: 100%;
+
+				filter: alpha(opacity=0);
+				opacity: 0;
+			}
+
+			#file-input:valid {
+				filter: alpha(opacity=100);
+				opacity: 1;
+				background: #DDD;
+
+				margin-top: -1px;
+				margin-right: -1px;
+				border: 1px outset;
+				border-radius: 2px;
+
+				font-size: 20px;
+			}
+
+			#file-input:valid:hover {
+				border: 1px inset;
+
+				padding-top: 1px;
+				padding-left: 1px;
+			}
+
+			#url-input {
+				height: 40px;
+				line-height: 40px;
+				display: block;
+				margin: 10px auto;
+				vertical-align: middle;
+				padding: 5px 20px;
+				font-size: 100%;
+				width: 100%;
+
+				box-sizing: border-box;
+				border: 1px inset;
+				border-radius: 2px;
+				text-align: center;
+			}
+			
+			#file-label, input[type="submit"] {
+				overflow: hidden;
+				position: relative;
+
+				background: #DDD;
+				border: 1px outset;
+				border-radius: 2px;
+				color: black;
+				text-shadow: none;
+				height: 40px;
+				line-height: 30px;
+				display: block;
+				margin: 10px auto;
+				vertical-align: middle;
+				padding: 5px 20px;
+				box-sizing: border-box;
+				font-size: 100%;
+			}
+			
+			#file-label:hover, input[type="submit"]:hover {
+				padding: 6px 19px 4px 21px;
+				background: #FFF;
+				border: 1px inset;
+			}
+
+			#file-label:active, input[type="submit"]:active {
+				background: #FFFFEE;
+			}
+
+			#content {
+				flex-grow: 1;
+			}
+
+			#footer {
+				width: 100%;
+				left: 0;
+				text-align: center;
+			}
+
+			#url-form {
+				margin-top: 3em;
+			}
+
+			form {
+				position: relative;
+			}
+
+			label.checkbox {
+				position: absolute;
+				left: 0;
+			}
+
+			label.checkbox + label.checkbox {
+				right: 0;
+				left: auto;
+				color: #FEDCBA;
+			}
+
+			label.checkbox input {
+				vertical-align: middle;
+			}
+
+			#alternatives {
+				display: inline-block;
+				text-align: left;
+				padding: 0;
+				margin-top: 0;
+			}
+
+			#alternatives li {
+				margin-left: 1em;
+			}
+
+			#alternatives li:first-child {
+				margin-left: 0;
+			}
+
+		</style>
+</head>
+<body>
+<div id="content">
+<h1>Just upload stuff.</h1>
+<ul id="alternatives">
+<li>Also available...</li>
+<li>on <a href="https://www.torproject.org/projects/torbrowser.html.en">Tor</a>: <a href="http://jusfileobjorolmq.onion">jusfileobjorolmq.onion</a></li>
+<li>over HTTPS: <a href="https://up.ÿ.fr">https://up.ÿ.fr</a></li>
+<li>over HTTP: <a href="http://up.ÿ.fr">up.ÿ.fr</a></li>
+</ul>
+<form action="" enctype="multipart/form-data" id="upload-form" method="POST">
+<label id="file-label">Select your file...
+					<input id="file-input" multiple="multiple" name="file[]" required="required" type="file"/>
+</label>
+<label class="checkbox" for="clean-metadata-1">Strip image metadata <input id="clean-metadata-1" name="clean-metadata" type="checkbox" value="1"/></label>
+<label class="checkbox" for="transient-1">Due to abuse, Tor uploads are<br/> always deleted after one download</label>
+<input type="submit" value="Up"/>
+</form>
+<form action="" id="url-form" method="POST">
+<input id="url-input" name="url" placeholder="... or an URL" type="url"/>
+<label class="checkbox" for="clean-metadata-2">Strip image metadata <input id="clean-metadata-2" name="clean-metadata" type="checkbox" value="1"/></label>
+<label class="checkbox" for="transient-2">Due to abuse, Tor uploads are<br/> always deleted after one download</label>
+<input type="submit" value="Up"/>
+</form>
+<p id="limitations">Maximum file size and total upload size is 300 MB.</p>
+<p id="limitations">Your files will stay available for at least one week.</p>
+<p id="limitations">Please, do not upload content that is illegal in your country or in the European Union.</p>
+<p id="limitations">Report abuse to: <a href="mailto:abuse@ÿ.fr">abuse@ÿ.fr</a>.</p>
+</div>
+<div id="footer">
+<p id="usage"><code>curl --upload-file &lt;/home/you/local-file.png&gt; up.ÿ.fr</code></p>
+<p id="credits"><a href="mailto:see@seos.fr">see@seos.fr</a> — <a href="https://github.com/seeschloss/jus">github.com/seeschloss/jus</a></p>
+</div>
+</body>
+</html>
