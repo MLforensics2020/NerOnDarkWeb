@@ -31,8 +31,8 @@ def main():
 	cdepth = 1
 
 	# Parse arguments to variables
-	inputFile = "links.txt"
-	outputfile = "source_pages"
+	inputFile = "Crawler/links.txt"
+	outputfile = "Crawler/source_pages"
 	checktor()
 	connecttor()
 	checkip()
@@ -48,7 +48,7 @@ def main():
 			print("url - ",url)
 			global website
 			global outpath
-			outpath = "output"
+			outpath = "Crawler/output"
 			website = urlcanon(url,True)
 			lst = crawler(website, cdepth, cpause, outpath, True, True)
 			print("list->",lst)
@@ -60,7 +60,7 @@ def main():
 			# print("Writing source pages")
 			# inputfile = outpath + "/onionlinks.txt"
 			# extractor(website, True, outputfile, inputfile, outputfile)
+		return lst
 
-
-if __name__ == "__main__":
-	main()
+# if __name__ == "__main__":
+# 	main()
