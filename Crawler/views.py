@@ -1,12 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render , get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import authentication, permissions
-from .models import ExtractedTerms , CrawledOnionLinks
+from .models import ExtractedTerms , CrawledOnionLinks , InputLinks
 from django.http import JsonResponse
 from Crawler.get_data import do_ner
-from Crawler.torcrawl import main
-
+from Crawler.torcrawl import crawl
+from Crawler.utils import chunk
 class ExtractTerms(APIView):
     def get(self, request, format=None):
         """
@@ -25,12 +25,19 @@ class RunCrawler(APIView):
         """
         Gets links, html.
         """
-        links = main()
-        queries = list()
-        for link in links:
-            if self.alreadyExists(link) :
-                pass
-            else:
-                queries.append(CrawledOnionLinks(link=link))
-        CrawledOnionLinks.objects.bulk_create(queries)
-        return JsonResponse({"success":True,"links":links})
+        unvisitedLinks = InputLinks.objects.filter(visited=False).values_list('link',flat=True)
+        chunksOfUnvisitedLinks = list(chunk(unvisitedLinks, 10))
+        for urlChunk in chunksOfUnvisitedLinks:
+            queries = list()
+            links = crawl(list(urlChunk))
+            for link in links:
+                if self.alreadyExists(link) :
+                    print("Already exists")
+                else:
+                    queries.append(CrawledOnionLinks(link=link))
+            for url in urlChunk:
+                a = InputLinks.objects.get(link=url)
+                a.visited = True
+                a.save()
+            CrawledOnionLinks.objects.bulk_create(queries)
+        return JsonResponse({"success":True})
