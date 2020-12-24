@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<title>SporeStack: VPS hosting for Bitcoin, Bitcoin Cash, Bitcoin SV, Monero. No accounts, no emails, API-driven</title>
+<meta charset="utf-8"/>
+<meta content="Deploy VPS servers with Bitcoin. Anonymous, no account needed. Purely API driven." name="description"/>
+<meta content="Bitcoin, cryptocurrency, Bitcoin Cash, Bitcoin SV, immutable, ephemeral, disposable, vps, infrastructure" name="keywords"/>
+<meta content="e3fd949cdfb2465c" name="yandex-verification">
+<meta content="D5DFEC99600E11EB3D74C1CD971D77D2" name="msvalidate.01">
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="/static/bootstrap.min.css" rel="stylesheet"/>
+<!-- ****** faviconit.com favicons ****** -->
+<link href="/favicon.ico" rel="shortcut icon"/>
+<link href="/favicon.ico" rel="icon" sizes="16x16 32x32 64x64"/>
+<link href="/favicon-192.png" rel="icon" sizes="196x196" type="image/png"/>
+<link href="/favicon-160.png" rel="icon" sizes="160x160" type="image/png"/>
+<link href="/favicon-96.png" rel="icon" sizes="96x96" type="image/png"/>
+<link href="/favicon-64.png" rel="icon" sizes="64x64" type="image/png"/>
+<link href="/favicon-32.png" rel="icon" sizes="32x32" type="image/png"/>
+<link href="/favicon-16.png" rel="icon" sizes="16x16" type="image/png"/>
+<link href="/favicon-57.png" rel="apple-touch-icon"/>
+<link href="/favicon-114.png" rel="apple-touch-icon" sizes="114x114"/>
+<link href="/favicon-72.png" rel="apple-touch-icon" sizes="72x72"/>
+<link href="/favicon-144.png" rel="apple-touch-icon" sizes="144x144"/>
+<link href="/favicon-60.png" rel="apple-touch-icon" sizes="60x60"/>
+<link href="/favicon-120.png" rel="apple-touch-icon" sizes="120x120"/>
+<link href="/favicon-76.png" rel="apple-touch-icon" sizes="76x76"/>
+<link href="/favicon-152.png" rel="apple-touch-icon" sizes="152x152"/>
+<link href="/favicon-180.png" rel="apple-touch-icon" sizes="180x180"/>
+<meta content="#FFFFFF" name="msapplication-TileColor"/>
+<meta content="/favicon-144.png" name="msapplication-TileImage"/>
+<meta content="/browserconfig.xml" name="msapplication-config"/>
+<!-- ****** faviconit.com favicons ****** -->
+</meta></meta></head>
+<body>
+<div class="container">
+<div class="jumbotron">
+<a href="/"><h1><img alt="SporeStack" class="img-fluid" src="../static/sporestack.png"/></h1></a>
+<p>Accountless, API-driven VPS hosting for Bitcoin, Bitcoin Cash, Bitcoin SV, and Monero</p>
+</div>
+<div class="d-md-flex flex-wrap">
+<div><a class="btn btn-outline-primary btn-block active" href="/">Main</a></div>
+<div><a class="btn btn-outline-primary btn-block" href="/pricing/">Pricing</a></div>
+<div><a class="btn btn-outline-primary btn-block" href="/settlement_tokens/">Tokens</a></div>
+<div><a class="btn btn-outline-primary btn-block" href="/affiliate/">Affiliate</a></div>
+<div><a class="btn btn-outline-primary btn-block" href="/about/">About</a></div>
+<div><a class="btn btn-outline-primary btn-block" href="/contact/">Contact</a></div>
+<div><a class="btn btn-outline-primary btn-block" href="/news/">News</a></div>
+<div><a class="btn btn-outline-primary btn-block" href="/faq/">FAQ</a></div>
+<div><a class="btn btn-outline-primary btn-block" href="/api_documentation/">API</a></div>
+</div>
+<br/>
+<br/>
+<h3>Launch a server</h3>
+<div class="card card-body">
+<!-- This launcher is released into the public domain under the UNLICENSE -->
+<script src="/static/sporestack.js"></script>
+<script src="/static/qr.js"></script>
+<!-- https://github.com/thednp/bootstrap.native -->
+<script src="/static/bootstrap-native-v4.min.js"></script>
+<script>
+        affiliate_token = null;
+        if (window.location.hash) {
+                const hash = window.location.hash.substring(1);
+                if (hash.startsWith("ref=")) {
+                        affiliate_token = hash.split("=")[1];
+                        console.log("Using affiliate token: " + affiliate_token);
+                }
+        }
+</script>
+<noscript><h2>The SporeStack web launcher needs Javascript to work.</h2></noscript>
+<div class="input-group mb-3 launch_only">
+<div class="input-group-prepend">
+<span class="input-group-text font-weight-bold">Server Size</span>
+</div>
+<select class="control form-control" id="flavor" onchange="flavor_onchange(this.value)">
+<option selected="" value="vps-1vcpu-1gb">1GB Memory / 1 vCPU / 25GB SSD / 0.98TB Transfer / $8.96~ per 28 days</option>
+<option value="vps-1vcpu-2gb">2GB Memory / 1 vCPU / 50GB SSD / 2.00TB Transfer / $17.92~ per 28 days</option>
+<option value="vps-3vcpu-1gb">1GB Memory / 3 vCPU / 60GB SSD / 2.98TB Transfer / $26.88~ per 28 days</option>
+<option value="vps-2vcpu-2gb">2GB Memory / 2 vCPU / 60GB SSD / 2.98TB Transfer / $26.88~ per 28 days</option>
+<option value="vps-1vcpu-3gb">3GB Memory / 1 vCPU / 60GB SSD / 2.98TB Transfer / $26.88~ per 28 days</option>
+<option value="vps-2vcpu-4gb">4GB Memory / 2 vCPU / 80GB SSD / 3.99TB Transfer / $35.84~ per 28 days</option>
+<option value="vps-4vcpu-8gb">8GB Memory / 4 vCPU / 160GB SSD / 4.98TB Transfer / $71.96~ per 28 days</option>
+<option value="vps-6vcpu-16gb">16GB Memory / 6 vCPU / 320GB SSD / 5.99TB Transfer / $143.92~ per 28 days</option>
+<option value="vps-8vcpu-32gb">32GB Memory / 8 vCPU / 640GB SSD / 7.00TB Transfer / $287.84~ per 28 days</option>
+<option value="vps-12vcpu-48gb">48GB Memory / 12 vCPU / 960GB SSD / 7.98TB Transfer / $431.76~ per 28 days</option>
+<option value="vps-16vcpu-64gb">64GB Memory / 16 vCPU / 1280GB SSD / 9.00TB Transfer / $575.96~ per 28 days</option>
+<option value="vps-20vcpu-96gb">96GB Memory / 20 vCPU / 1920GB SSD / 9.98TB Transfer / $863.80~ per 28 days</option>
+<option value="vps-24vcpu-128gb">128GB Memory / 24 vCPU / 2560GB SSD / 10.99TB Transfer / $1151.92~ per 28 days</option>
+<option value="vps-32vcpu-192gb">192GB Memory / 32 vCPU / 3840GB SSD / 11.98TB Transfer / $1727.88~ per 28 days</option>
+<option value="tor-1024">(Torified) 1GB Memory / 1 vCPU / 8GB SSD / 0.55TB Transfer / $7.84~ per 28 days</option>
+<option value="tor-2048">(Torified) 2GB Memory / 1 vCPU / 16GB SSD / 1.09TB Transfer / $15.68~ per 28 days</option>
+<option value="tor-3072">(Torified) 3GB Memory / 1 vCPU / 24GB SSD / 1.64TB Transfer / $23.52~ per 28 days</option>
+<option value="tor-4096">(Torified) 4GB Memory / 1 vCPU / 32GB SSD / 2.19TB Transfer / $31.36~ per 28 days</option>
+</select>
+</div>
+<div class="launch_only input-group mb-3">
+<div class="input-group-prepend">
+<span class="input-group-text">Hostname</span>
+</div>
+<input class="control form-control" id="hostname" placeholder="Optional and not sent to SporeStack. This is just a way to help you identify your server, locally." title="Optional and not sent to SporeStack. This is just a way to help you identify your server, locally." type="text"/>
+</div>
+<div class="input-group mb-3">
+<div class="input-group-prepend">
+<span class="input-group-text">Currency</span>
+</div>
+<select class="control form-control" id="currency" onchange="currency_onchange(this.value)">
+<option value="btc">Bitcoin</option>
+<option value="bch">Bitcoin Cash</option>
+<option value="bsv">Bitcoin SV</option>
+<option value="xmr">Monero</option>
+<option value="settlement">Settlement Token</option>
+</select>
+</div>
+<div class="input-group mb-3" id="settlement_token_div">
+<div class="input-group-prepend">
+<span class="input-group-text">Settlement Token</span>
+</div>
+<input autocomplete="off" class="control form-control" id="settlement_token" maxlength="64" minlength="64" pattern="^[a-f0-9]*$" placeholder="64 lowercase hex characters. Keep it a secret!" required="" spellcheck="false" title="Settlement Token (Keep this secret!)" type="text"/>
+</div>
+<div class="input-group mb-3 launch_only">
+<div class="input-group-prepend">
+<span class="input-group-text">Provider</span>
+</div>
+<select class="control form-control flavor-control" id="host" onchange="host_onchange(this.value);">
+<option value="auto">Automatic</option>
+<option value="digitalocean.sporestack.com">Digital Ocean</option>
+</select>
+</div>
+<div class="input-group mb-3 launch_only" id="region_div">
+<div class="input-group-prepend">
+<span class="input-group-text">Region</span>
+</div>
+<select class="control form-control" disabled="" id="region">
+<option value="auto">Random with capacity</option>
+<option value="sfo2">San Francisco</option>
+<option value="nyc1">New York City 1</option>
+<option value="nyc3">New York City 3</option>
+<option value="tor1">Toronto</option>
+<option value="lon1">London</option>
+<option value="ams3">Amsterdam</option>
+<option value="fra1">Frankfurt</option>
+<option value="sgp1">Singapore</option>
+<option value="blr1">Bangalore</option>
+</select>
+</div>
+<div class="input-group mb-3 launch_only">
+<div class="input-group-prepend">
+<span class="input-group-text">Operating System</span>
+</div>
+<select class="control form-control" id="operating_system">
+<option value="centos-7">CentOS 7.6 x64</option>
+<option value="centos-8">CentOS 8.1 x64</option>
+<option value="coreos-stable">CoreOS 2345.3.0 (stable)</option>
+<option value="debian-10">Debian 10.2 x64</option>
+<option value="debian-9">Debian 9.7 x64</option>
+<option value="fedora-31">Fedora 31 x64</option>
+<option value="freebsd-11">FreeBSD 11.3 x64 ufs</option>
+<option value="freebsd-11-zfs">FreeBSD 11.3 x64 zfs</option>
+<option value="freebsd-12">FreeBSD 12.1 x64 ufs</option>
+<option value="freebsd-12-zfs">FreeBSD 12.1 x64 zfs</option>
+<option value="rancheros">RancherOS v1.5.5</option>
+<option value="ubuntu-16-04">Ubuntu 16.04.6 (LTS) x64</option>
+<option value="ubuntu-18-04">Ubuntu 18.04.3 (LTS) x64</option>
+<option value="ubuntu-20-04">Ubuntu 20.04 (LTS) x64</option>
+</select>
+</div>
+<div class="launch_only input-group mb-3">
+<div class="input-group-prepend">
+<span class="input-group-text">SSH public key <code>(~/.ssh/id_rsa.pub)</code></span>
+</div>
+<input class="control form-control" id="ssh_key" placeholder="ssh-rsa..." required="" type="text"/>
+<input accept=".pub" class="control form-control-file border" onchange="key_attach(this.files)" type="file"/>
+</div>
+<div class="input-group mb-3">
+<div class="input-group-prepend">
+<span class="input-group-text">Days to live (Can be renewed.)</span>
+</div>
+<input class="control" id="days" max="28" min="1" oninput="document.getElementById('days_range').value = this.value" size="2" type="number" value="7"/>
+<input class="control form-control input-group-append" id="days_range" max="28" min="1" oninput="document.getElementById('days').value = this.value" step="1" type="range" value="7"/>
+</div>
+<button class="control form-control btn-primary" id="launch_button" onclick="lock_out_controls(); launch_button_processing();  try_launch();" type="button">Launch a server <small>(quotes a price first unless paying with a settlement token)</small></button>
+<br/>
+<button class="form-control btn-outline-danger" id="reset_button" onclick="reset_modal()" type="button">Reset</button>
+<div id="info"></div>
+<p>
+<div class="mt-3" id="qr"></div>
+<span id="uri"></span>
+<div id="money_button_div"></div>
+</p>
+<div id="output"></div>
+<div class="fixed-top" id="banner"></div>
+<h3>Acceptable Use Policy</h3>
+<div class="card card-body mb-3">
+<p>Predominantly, SporeStack launches servers on VPS providers such as Digital Ocean. As such, your actions and use of the server must conform to their policies.</p>
+<p>Generally speaking, this means no:</p>
+<ul>
+<li>Mass port scanning</li>
+<li>Child pornography</li>
+<li>Phishing</li>
+<li>DDoS</li>
+<li>Hacking</li>
+<li>Exceeding your alloted bandwidth</li>
+</ul>
+<p>Any one of these actions that results in an abuse ticket to Digital Ocean will result in the termination of your server. At our discretion, it may include other servers you have launched as a preventative measure.</p>
+<p>For more details, please see <a href="https://www.digitalocean.com/legal/acceptable-use-policy/" target="_blank">Digital Ocean's Acceptable Use Policy</a>.</p>
+</div>
+<div id="existing_servers"></div>
+<div id="import_server">
+<h5>Already built a server?</h5>
+<code><textarea class="form-control" id="import_textarea" placeholder='{"txid":null,"payment":{"address":null,"amount":0},"sshhostname":"2a03:b0c0:2:f0::f9:c001","host":"digitalocean.sporestack.com","latest_api_version":2,"created":true,"region":"ams3","expiration":1562894840,"warning":null,"paid":true,"network_interfaces":[{"ipv6":"2a03:b0c0:2:f0::f9:c001","ipv4":"142.93.137.24"}],"machine_id":"ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff","refund_tx":null}'></textarea></code>
+<input class="control form-control btn-primary" id="import_button" onclick="import_server();" type="button" value="Import server details (JSON)"/>
+</div>
+<!-- blank modal template -->
+<div aria-hidden="true" class="modal fade" id="modalID" role="dialog" tabindex="-1">
+<div class="modal-dialog">
+<div class="modal-content">
+<!-- the .setContent() method will update this element's HTML -->
+</div>
+</div>
+</div>
+<script>
+controls_disabled = true;
+
+/* Set appropriate endpoint is using tor. */
+/* I hate Javascript. https://stackoverflow.com/questions/38765194/conditionally-initializing-a-constant-in-javascript */
+const sporestack_endpoint = window.location.hostname.endsWith(".onion") ? sporestack_baseurl_tor : sporestack_baseurl_clearnet;
+
+console.log("SporeStack endpoint selected: " + sporestack_endpoint);
+
+function success(message) {
+    const message_prefix = "SporeStack launcher: ";
+    console.log(message_prefix + message);
+    banner(message, "success");
+}
+
+function banner(message, style) {
+    append_contents("banner", '<div class="alert alert-' + style + ' alert-dismissible fade show" role="alert"><button type="button" class="close" data-dismiss="alert">&times;</button>' + message + '</div>');
+    BSN.initCallback();
+}
+
+
+function error(message) {
+    const message_prefix = "SporeStack launcher [ERROR]: ";
+    console.log(message_prefix + message);
+    banner(message, "danger");
+}
+
+function import_server() {
+    var element = document.getElementById("import_textarea");
+    try {
+        var server = JSON.parse(element.value);
+    } catch (e) {
+        error(e);
+        return;
+    }
+    if (!("machine_id" in server)) {
+        error("machine_id not in JSON.");
+        return;
+    }
+    const path_name = "SporeStack_" + server["machine_id"];
+    const json_response = JSON.stringify(server);
+    window.localStorage.setItem(path_name, json_response);
+    list_servers();
+    document.getElementById("import_textarea").value = "";
+}
+
+function remove_server_from_storage(machine_id) {
+    console.log("Attempting to remove: " + machine_id);
+    const path_name = "SporeStack_" + machine_id;
+    window.localStorage.removeItem(path_name);
+    list_servers();
+}
+
+function key_attach(files) {
+    var reader = new FileReader();
+    var element = document.getElementById("ssh_key");
+    reader.onload = function() {
+        element.value = reader.result;
+        element.disabled = true;
+    }
+    reader.readAsText(files[0]);
+}
+
+function host_onchange(host) {
+    if (host === "auto" ) {
+        set_value("region", "auto");
+        disable_by_id("region");
+        hide_by_id("region_div");
+    } else if (host === "digitalocean.sporestack.com") {
+        disable_by_id("region", status=false);
+        unhide_by_id("region_div");
+    } else {
+        hide_by_id("region_div");
+        disable_by_id("region");
+        error("host_onchange() bug.");
+    }
+}
+
+function disable_by_id(id, status = true) {
+    var element = document.getElementById(id);
+    element.disabled = status;
+}
+
+function currency_onchange(currency) {
+    if (currency === "settlement") {
+        unhide_by_id("settlement_token_div");
+    } else {
+        hide_by_id("settlement_token_div");
+    }
+}
+
+function flavor_onchange(flavor) {
+    disableClass("flavor-control", true);
+    if (flavor.startsWith("vps")) {
+        document.getElementById("host").value = "digitalocean.sporestack.com";
+        host_onchange(document.getElementById("host").value);
+    } else {
+        document.getElementById("host").value = "auto";
+        host_onchange(document.getElementById("host").value);
+    }
+}
+
+function disableClass(className, status) {
+    var items = document.getElementsByClassName(className);
+    Array.from(items).forEach((id) => {
+        id.disabled = status;
+        if (status === true ) {
+            id.classList.add("disabled");
+        } else {
+            id.classList.remove("disabled");
+        }
+    } );
+}
+
+function lock_out_controls(status = true) {
+    controls_disabled = status;
+    disableClass("control", status);
+    blank_by_id("qr");
+    blank_by_id("uri");
+    flavor_onchange(document.getElementById("flavor").value);
+}
+
+function renew_enable(machine_id) {
+    blank_by_id("qr");
+    blank_by_id("uri");
+    var items = document.getElementsByClassName("launch_only");
+    Array.from(items).forEach((id) => {
+        id.style = "display:none";
+    } );
+    var launch_button = document.getElementById("launch_button");
+    launch_button.innerHTML = "Renew ";
+    const server = get_server(machine_id);
+    if ("vm_hostname" in server ) {
+        launch_button.innerHTML += server["vm_hostname"];
+    } else {
+        launch_button.innerHTML += server["machine_id"];
+    }
+    launch_button.onclick = function() { lock_out_controls(); launch_button_processing(); renew_wrapper(machine_id); };
+}
+
+function renew_wrapper(machine_id) {
+    lock_out_controls();
+    try_renew(machine_id);
+}
+
+function pay(uri, usd) {
+    currency = document.getElementById("currency").value;
+    var uri_element = document.getElementById("uri");
+    var uri_link = '<a target="_blank" href="' + uri + '">' + uri + '</a><br/>';
+    uri_link += '<h4>Paying with ' + currency.toUpperCase() + '.</h4>';
+    uri_link += '<h5>Send <b>exactly</b> this amount, no more no less. Payment amount does expire, send within ten minutes.</h5>';
+    uri_link += '<h6>Approximately ' + usd + ' USD</h6>';
+    uri_element.innerHTML = uri_link;
+    const qr_data = QRCode.generateHTML(uri, {ecclevel: "H"});
+    const element = document.getElementById("qr");
+    element.innerHTML = '<a target="_blank" href="' + uri + '">' + qr_data.innerHTML + '</a>';
+
+    var launch_button = document.getElementById("launch_button");
+    launch_button.innerHTML = "I've sent the exact payment";
+    launch_button.disabled = false;
+
+    if (currency === "bsv") {
+	// Make this a global. Name is not important or specifically altered for moneybutton.
+        moneybutton_uri = uri;
+        uri_element.innerHTML += "<button class=\"btn btn-link\" onclick=\"pay_moneybutton()\">I want to pay with MoneyButton, instead. <span class=\"text-danger\">(Uses off-site Javascript)</span></button>";
+    }
+
+    pay_loop = true;
+}
+
+function uri_to_address_amount(uri) {
+    // Intended for Moneybutton, so BSV only
+    var address = uri.split(":")[1].split("?")[0]
+    var amount = uri.split("=")[1]
+    return [address, amount]
+}
+
+function pay_moneybutton() {
+    // Off-site Javascript warning
+    // So far intended to be called after pay() but not hard to make it standalone.
+    pay_loop = true;
+
+    blank_by_id("qr");
+    blank_by_id("uri");
+
+    var script = document.createElement("script");
+    script.src = "https://www.moneybutton.com/moneybutton.js";
+    document.head.appendChild(script);
+
+    launch_button_processing();
+    launch_button.disabled = true;
+
+    // We loaded moneybutton after the fact, so its functions aren't ready yet.
+    run_moneybutton();
+}
+
+function run_moneybutton() {
+    if (!(typeof moneyButton === "object")) {
+        console.log("Money Button isn't ready yet, retrying in half a second...");
+        return setTimeout(function() { run_moneybutton(); }, 500);
+    }
+    // Affiliate example:
+    // outputs, add this:
+    // { address: "1youraddress",
+    //   amount: 0.01,
+    //   currency: "BSV"
+    // },
+
+
+    const uri = moneybutton_uri;
+    const uri_output = uri_to_address_amount(uri);
+    const address = uri_output[0]
+    const amount = uri_output[1]
+
+    set_contents("launch_button", "Pay with MoneyButton, not this button.")
+
+    const payment_element = document.getElementById("money_button_div");
+    moneyButton.render(payment_element, {
+      outputs: [
+                 { address: address,
+                   amount: amount,
+                   currency: "BSV"
+                 }
+      ],
+      buttonId: address,
+      buttonData: "{}",
+      type: "buy",
+      onPayment: function (arg) { var launchbtn = document.getElementById("launch_button"); launchbtn.disabled = false; launchbtn.click(); },
+      onError: function (arg) { error(arg); }
+  })
+}
+
+function buy_another_server_prep() {
+    lock_out_controls(false);
+    /* Reset launch_host */
+    launch_host = null;
+    set_contents("launch_button", launch_button_text);
+    hide_by_id("reset_button");
+    pay_loop = false;
+}
+
+var pay_loop = false;
+var launch_host = null;
+function launch_callback(response) {
+    launch_host = response["host"];
+    if (response["created"] === true) {
+        var path_name = "SporeStack_" + response["machine_id"]
+        response["vm_hostname"] = document.getElementById("hostname").value;
+        response["api_endpoint"] = sporestack_endpoint;
+        var json_response = JSON.stringify(response);
+        window.localStorage.setItem(path_name, json_response);
+        set_contents("launch_button", "Server built.");
+        set_contents("output", "<h4>Save this output and don't share it with anyone:</h4><code><textarea readonly class='form-control'>" + json_response + "</textarea></code>")
+        list_servers();
+        success("Server launched!");
+        pay_loop = false;
+        /* New Machine ID for new server. */
+        machine_id = random_machine_id();
+        buy_another_server_prep();
+
+    } else if (response["paid"] === true) {
+
+        set_contents("launch_button", "Payment received. Building...");
+        launch_button_processing();
+        setTimeout(function () { try_launch(); }, 5000);
+        hide_by_id("reset_button");
+
+    } else if (response["paid"] === false) {
+
+        unhide_by_id("reset_button");
+        if (pay_loop === true) {
+            hide_by_id("reset_button");
+            setTimeout(function () { try_launch(); }, 5000);
+        } else {
+            pay(response.payment.uri, response.payment.usd);
+        }
+
+    }
+}
+
+function renew_callback(response) {
+    if (response["paid"] === true) {
+        hide_by_id("reset_button");
+        set_contents("launch_button", "Renewed.");
+        var path_name = "SporeStack_" + response["machine_id"];
+        var server = JSON.parse(window.localStorage[path_name]);
+        server["expiration"] = response["expiration"];
+        var json_response = JSON.stringify(server);
+        window.localStorage.setItem(path_name, json_response);
+        list_servers();
+        success("Server renewed!");
+        lock_out_controls(false);
+        pay_loop = false;
+
+    } else if (response["paid"] === false) {
+        unhide_by_id("reset_button");
+        if (pay_loop === true) {
+            setTimeout(function () { try_renew(response["machine_id"]); }, 5000);
+        } else {
+            pay(response.payment.uri, response.payment.usd);
+        }
+    } else {
+        error("Renew callback bug");
+    }
+}
+
+function blank_by_id(id) {
+    var element = document.getElementById(id);
+    element.innerHTML = "";
+}
+
+function hide_by_id(id) {
+    var element = document.getElementById(id);
+    element.style = "display:none";
+}
+
+function unhide_by_id(id) {
+    var element = document.getElementById(id);
+    element.style = "";
+}
+
+function epoch_to_date(epoch) {
+    var date = new Date(0);
+    date.setUTCSeconds(epoch);
+    return date;
+}
+
+function delete_modal(machine_id) {
+    var myModal = document.getElementById('modalID');
+    var content = '<div class="modal-body">Are you sure you want to delete <code>' + machine_id + "</code>?";
+    content += '<h3>There will be no refund for remaining server lifetime.</h3>';
+    content += '<h3>Data will be lost!</h3>';
+    content += '</div>';
+    content += '<div class="modal-footer">';
+    content += "<button type='button' class='btn btn-danger' data-dismiss='modal' onclick='delete_vm(\"" + machine_id + "\")'>Delete</button>";
+    content += '<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>';
+    content += "</div>";
+    var myModalInstance = new Modal(myModal,
+    {
+        content: content
+    });
+    myModalInstance.show();
+}
+
+function reset_modal() {
+    var myModal = document.getElementById('modalID');
+    var content = '<div class="modal-body">Are you sure you want to to reset the form?';
+    content += ' You did not pay already, right?';
+    content += '</div>';
+    content += '<div class="modal-footer">';
+    content += "<button type='button' class='btn btn-danger' data-dismiss='modal' onclick='buy_another_server_prep()'>Reset the form</button>";
+    content += '<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>';
+    content += "</div>";
+    var myModalInstance = new Modal(myModal,
+    {
+        content: content
+    });
+    myModalInstance.show();
+}
+
+async function get_info_html(response) {
+    var actions = "<div class='btn-group'>";
+    let info_response = await sporestack_info_fetch(response["machine_id"], response["host"], sporestack_endpoint);
+    if (!info_response.ok) {
+        var expiration_epoch = response["expiration"];
+        var deleted = true;
+        var running = false;
+    } else {
+        let info_response_dict = await info_response.json();
+        var expiration_epoch = info_response_dict["expiration"];
+        var running = info_response_dict["running"];
+        var deleted = false;
+    }
+    var expiration = "<span>Expiration: " + epoch_to_date(expiration_epoch);
+    const epoch = Date.now() / 1000 | 0;
+    const time_remaining =  expiration_epoch - epoch;
+    const expired_for =  epoch - expiration_epoch;
+    var extra_class = "";
+    if (!deleted) {
+        expiration += " &bull; Hours remaining: " + Math.floor(time_remaining / 3600);
+        if (time_remaining < 0) {
+            extra_class = "bg-warning";
+            expiration += " &bull; <strong>(Expired but not yet deleted. Powered off. Renew ASAP!)</strong>";
+        }
+        actions += "<button type='button' class='btn btn-primary btn-sm' onclick='start_vm(\"" + response["machine_id"] + "\")'>Start</button>";
+        actions += "<button type='button' class='btn btn-primary btn-sm' onclick='stop_vm(\"" + response["machine_id"] + "\")'>Stop</button>";
+        actions += "<button type='button' class='btn btn-primary btn-sm' onclick='delete_modal(\"" + response["machine_id"] + "\")'>Delete</button>";
+        actions += "<button type='button' class='control btn btn-primary btn-sm' onclick='renew_enable(\"" + response["machine_id"] + "\")'>Renew</button>";
+    } else {
+        extra_class = "bg-secondary";
+        expiration += " <strong>(Expired and deleted)</strong>";
+        actions += "<button type='button' class='control btn btn-danger btn-sm' onclick='remove_server_from_storage(\"" + response["machine_id"] + "\")'>Remove expired server</button>";
+    }
+    actions += "</div>";
+    expiration = expiration + "</span>";
+    var output = "<div class=\"card card-body " + extra_class + "\">";
+    if ("vm_hostname" in response) {
+        output += "<span>Hostname: " + response["vm_hostname"] + "</span>";
+    }
+    output += "<span>Machine ID <em>(this needs to be kept secret)</em> " + response["machine_id"] + "</span>";
+    output += expiration;
+    output += "<span>Running: " + running + "</span>";
+    if ("ipv6" in response["network_interfaces"][0]) {
+        output += "<span>IPv4: " + response["network_interfaces"][0]["ipv4"] + "</span>";
+        output += "<span>IPv6: " + response["network_interfaces"][0]["ipv6"] + "</span>";
+    } else {
+        /* This would be a Torified VM. */
+        output += "<span>SSH hostname: " + response["sshhostname"] + "</span>";
+    }
+    output += "<span>Actions: " + actions + "</span><br/>";
+    output += "Raw: <code><textarea readonly class='form-control'>" + JSON.stringify(response) + "</textarea></code></div>";
+    return output;
+}
+
+function set_contents(id, value) {
+    var element = document.getElementById(id);
+    element.innerHTML = value;
+}
+
+function set_value(id, value) {
+    var element = document.getElementById(id);
+    element.value = value;
+}
+
+function append_value(id, value) {
+    var element = document.getElementById(id);
+    element.value += value;
+}
+
+function append_contents(id, value) {
+    var element = document.getElementById(id);
+    element.innerHTML += value;
+}
+
+async function list_servers() {
+    var servers = [];
+    for (var item in window.localStorage) {
+        if (item.startsWith("SporeStack_")) {
+            servers.push(item)
+        }
+    }
+
+    if (servers.length > 0) {
+        set_contents("existing_servers", "<h4>You already have these servers:</h4>");
+        for (const server of servers) {
+            append_contents("existing_servers", await get_info_html(JSON.parse(window.localStorage[server])));
+        }
+    } else {
+        set_contents("existing_servers", "");
+    }
+}
+
+list_servers();
+
+launch_button_text = "Launch a server <small>(quotes a price first)</small>";
+
+function launch_button_processing() {
+    set_contents("launch_button", '<div class="spinner-grow spinner-grow-sm text-light"></div><div class="spinner-grow spinner-grow-sm text-light"></div><div class="spinner-grow spinner-grow-sm text-light"></div><div class="spinner-grow spinner-grow-sm text-light"></div>');
+}
+
+function error_callback(response) {
+    error(response);
+    lock_out_controls(false);
+    set_contents("launch_button", launch_button_text);
+}
+
+function get_server(machine_id) {
+    var path_name = "SporeStack_" + machine_id;
+    server = JSON.parse(window.localStorage[path_name]);
+    return server
+}
+
+function get_settlement_token(currency) {
+    if (currency === "settlement") {
+        settlement_token = document.getElementById("settlement_token").value;
+    } else {
+        settlement_token = null;
+    }
+    return settlement_token;
+}
+
+function try_renew(machine_id) {
+    server = get_server(machine_id);
+    host = server["host"];
+    currency = document.getElementById("currency").value;
+    settlement_token = get_settlement_token(currency);
+    days = parseInt(document.getElementById("days").value, 10);
+    options = {"days": days,
+               "currency": currency,
+               "machine_id": machine_id,
+               "host": host,
+               "settlement_token": settlement_token,
+               "affiliate_token": affiliate_token};
+    launch_button_text = "Renew";
+    topup(renew_callback, error_callback, options, sporestack_endpoint);
+}
+
+function start_vm(machine_id) {
+    host = get_server(machine_id)["host"];
+    options = {"machine_id": machine_id,
+               "host": host};
+    sporestack_start(success, error, options, sporestack_endpoint);
+}
+
+function stop_vm(machine_id) {
+    host = get_server(machine_id)["host"];
+    options = {"machine_id": machine_id,
+               "host": host};
+    sporestack_stop(success, error, options, sporestack_endpoint);
+}
+
+function delete_vm(machine_id) {
+    host = get_server(machine_id)["host"];
+    options = {"machine_id": machine_id,
+               "host": host};
+    sporestack_delete(function(msg) { remove_server_from_storage(machine_id); success(msg); }, error, options, sporestack_endpoint);
+}
+
+function try_launch() {
+    if (typeof(machine_id) === 'undefined')
+        machine_id = random_machine_id();
+
+    currency = document.getElementById("currency").value;
+    settlement_token = get_settlement_token(currency);
+    days = parseInt(document.getElementById("days").value, 10);
+    operating_system = document.getElementById("operating_system").value;
+    ssh_key = document.getElementById("ssh_key").value;
+
+    host_onchange(document.getElementById("host").value);
+
+    flavor = document.getElementById("flavor").value;
+
+    region = document.getElementById("region").value;
+    if (region === "auto")
+        region = null;
+
+    host = document.getElementById("host").value;
+    if (host === "auto")
+        host = null;
+
+    options = {"host": host,
+               "flavor": flavor,
+               "region": region,
+               "days": days,
+               "machine_id": machine_id,
+               "currency": currency,
+               "settlement_token": settlement_token,
+               "ssh_key": ssh_key,
+               "host": launch_host,
+               "operating_system": operating_system,
+               "affiliate_token": affiliate_token};
+    output = launch(launch_callback, error_callback, options, sporestack_endpoint);
+}
+
+BSN.initCallback();
+// Incase anything was cached on a page reload with such settings.
+host_onchange(document.getElementById("host").value);
+currency_onchange(document.getElementById("currency").value);
+
+hide_by_id("reset_button");
+
+lock_out_controls(false);
+// This is now inside lock_out_controls. Ugly.
+// flavor_onchange(document.getElementById("flavor").value);
+
+</script>
+</div>
+<br/>
+<h3>Try SporeStack in your terminal</h3>
+<div class="card card-body">
+<code><pre>$ ssh-keygen # If you don't have an SSH key already.
+# pip is the Python package manager. Make sure you are using Python 3.
+$ pip3 install sporestack
+# The easiest way. BTC and BCH are also supported.
+$ sporestackv2 launch Your_Internal_Hostname --days 1 --flavor vps-1vcpu-1gb --operating_system ubuntu-18-04 --ssh_key_file ~/.ssh/id_rsa.pub --currency bsv
+
+# Pay from a WalkingLiberty wallet (easier for automation), launching a 2GB server
+$ sporestackv2 launch Your_Internal_Hostname --days 1 --flavor vps-1vcpu-2gb --operating_system ubuntu-18-04 --ssh_key_file ~/.ssh/id_rsa.pub --currency bsv --walkingliberty_wallet (walkingliberty wallet)
+
+# Or launch a <a href="/news/#2019-02-27">"hidden" node with Tor networking</a> for Bitcoin.
+$ sporestackv2 launch Your_Internal_Hostname --api_endpoint http://spore64i5sofqlfz5gq2ju4msgzojjwifls7rok2cti624zyq3fcelad.onion --flavor tor-1024 --days 1 --operating_system debian-9 --ssh_key_file ~/.ssh/id_rsa.pub --currency btc</pre></code>
+</div>
+<br/>
+<h3>Libraries</h3>
+<ul>
+<li><a href="https://git.sporestack.com/SporeStack/sporestack-python">Python 3</a>: <code>pip install sporestack</code></li>
+<li><a href="/static/sporestack.js">Javascript</a>: Feel free to use this library or any of the HTML/Javascript on this page for the web launcher</li>
+</ul>
+<h3>Python 3 library/CLI in action</h3>
+<img alt="SporeStack Python client screenshot" class="img-fluid" src="static/sporestackv2-screenshot.png"/>
+<br/>
+<br/>
+<form action="/feedback" autocomplete="off" method="post" target="_blank">
+<div class="input-group mb-3">
+<input name="page" type="hidden" value="index"/>
+<input class="form-control" maxlength="4096" name="data" placeholder="What do you think about SporeStack?" type="text"/><div class="input-group-append"><input class="btn btn-primary" type="submit" value="Submit"/></div>
+</div>
+</form>
+<br/>
+<br/>
+<footer class="card card-body rounded-lg bg-light">
+<small>
+<ul>
+<li>Tor Hidden Service: <a href="http://spore64i5sofqlfz5gq2ju4msgzojjwifls7rok2cti624zyq3fcelad.onion">spore64i5sofqlfz5gq2ju4msgzojjwifls7rok2cti624zyq3fcelad.onion</a></li>
+<li>Clearnet: <a href="https://sporestack.com">SporeStack.com</a></li>
+</ul>
+</small>
+</footer>
+</div>
+</body>
+</html>
