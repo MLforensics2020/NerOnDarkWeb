@@ -4,65 +4,9 @@ import urllib.request
 import time
 from bs4 import BeautifulSoup
 import tldextract , os
-from modules.checker import urlcanon
-# Exclude links that we dont need
-
-
-def excludes(link, website, outpath):
-    # BUG: For NoneType Exceptions, got to find a solution here
-    if link is None:
-        return True
-    # Links
-    elif '#' in link:
-        return True
-        # External links
-    elif link.startswith('http') and not link.startswith(website):
-        lstfile = open(outpath + '/extlinks.txt', 'w+')
-        lstfile.write(str(link) + '\n')
-        lstfile.close()
-        return True
-        # Telephone Number
-    elif link.startswith('tel:'):
-        lstfile = open(outpath + '/telephones.txt', 'w+')
-        lstfile.write(str(link) + '\n')
-        lstfile.close()
-        return True
-        # Mails
-    elif link.startswith('mailto:'):
-        lstfile = open(outpath + '/mails.txt', 'w+')
-        lstfile.write(str(link) + '\n')
-        lstfile.close()
-        return True
-        # Type of files
-    elif re.search('^.*\.(pdf|jpg|jpeg|png|gif|doc)$', link, re.IGNORECASE):
-        return True
-
-
-# Canonization of the link
-def canonical(link, website):
-    # Already formatted
-    if link.startswith(website):
-        return link
-    # For relative paths with / in front
-    elif link.startswith('/'):
-        if website[-1] == '/':
-            finalLink = website[:-1] + link
-        else:
-            finalLink = website + link
-        return finalLink
-    # For relative paths without /
-    elif re.search('^.*\.(html|htm|aspx|php|doc|css|js|less)$', link, re.IGNORECASE):
-        # Pass to
-        if website[-1] == '/':
-            finalLink = website + link
-        else:
-            finalLink = website + "/" + link
-        return finalLink
-    # Clean links from '?page=' arguments
+from Crawler.modules.checker import urlcanon
 
 # Check if a link is onion link, if yes return the domain
-
-
 def checkForOnionLink(link):
     response = tldextract.extract(link)
     if response.suffix == "onion":
@@ -71,8 +15,6 @@ def checkForOnionLink(link):
         return None
 
 # Core of crawler
-
-
 def crawler(website, cdepth, cpause, outpath, logs, verbose):
     lst = set()
     ordlst = []
@@ -121,10 +63,8 @@ def crawler(website, cdepth, cpause, outpath, logs, verbose):
                 ordlstind += 1
             # print("html_page",html_page.read())
             soup = BeautifulSoup(html_page, features="html.parser")
-            print("soup =>", soup)
             domain = tldextract.extract(item).domain
-            print("domain=>",domain)
-            with open(os.getcwd() + "/source_pages/" + domain +".htm", "w+") as file:
+            with open(os.getcwd() + "/Crawler/source_pages/" + domain +".htm", "w+") as file:
                 file.write(str(soup))
             for link in soup.findAll('a'):
                 link = link.get('href')
