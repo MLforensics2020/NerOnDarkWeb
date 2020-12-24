@@ -24,9 +24,8 @@ def connecttor():
 		print(("Error: %s" % e + "\n## Can't establish connection with TOR"))
 
 
-def main():
+def crawl(urls):
 	# Initialize necessary variables
-	inputfile = outputfile = ''
 	cpause = 0.5
 	cdepth = 1
 
@@ -37,30 +36,27 @@ def main():
 	connecttor()
 	checkip()
 	
-	try:
-		global f
-		f = open(inputFile, 'r')
-	except IOError:
-		e = sys.exc_info()[0]
-		print(("Error: %s" % e + "\n## Can't open " + inputFile))
-	else:
-		for url in f:
-			print("url - ",url)
-			global website
-			global outpath
-			outpath = "Crawler/output"
-			website = urlcanon(url,True)
-			lst = crawler(website, cdepth, cpause, outpath, True, True)
-			print("list->",lst)
-			lstfile = open(outpath + '/onionlinks.txt', 'a')
-			for item in lst:
-				lstfile.write("%s\n" % item)
-			lstfile.close()
-			print(("## File created on " + os.getcwd() + "/" + outpath + "/onionlinks.txt"))
-			# print("Writing source pages")
-			# inputfile = outpath + "/onionlinks.txt"
-			# extractor(website, True, outputfile, inputfile, outputfile)
-		return lst
+	# try:
+	# 	global f
+	# 	f = open(inputFile, 'r')
+	# except IOError:
+	# 	e = sys.exc_info()[0]
+	# 	print(("Error: %s" % e + "\n## Can't open " + inputFile))
+	# else:
+	for url in urls:
+		print("url - ",url)
+		global website
+		global outpath
+		outpath = "Crawler/output"
+		website = urlcanon(url,True)
+		lst = crawler(website, cdepth, cpause, outpath, True, True)
+		print("list->",lst)
+		lstfile = open(outpath + '/onionlinks.txt', 'a')
+		for item in lst:
+			lstfile.write("%s\n" % item)
+		lstfile.close()
+		print(("## File created on " + os.getcwd() + "/" + outpath + "/onionlinks.txt"))
+	return lst
 
 # if __name__ == "__main__":
 # 	main()

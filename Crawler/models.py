@@ -22,3 +22,13 @@ class CrawledOnionLinks(models.Model):
     
     def __str__(self):
         return self.link
+
+# Input links
+class InputLinks(models.Model):
+    name = models.CharField(max_length=100)
+    link = models.URLField()
+    visited = models.BooleanField()
+    created_at = models.DateTimeField(auto_now_add=True,blank=True)
+    
+    def __str__(self):
+        return self.link
