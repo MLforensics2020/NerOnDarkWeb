@@ -8,6 +8,7 @@ class ExtractedTermsAdmin(admin.ModelAdmin):
     list_filter = ('Source',)
     ordering = ['updated_at']
     search_fields = ['Term', 'Sentence','Source']
+    list_display = ('Term', 'Sentence','Source','updated_at')
 
 class CrawledOnionLinksAdmin(admin.ModelAdmin):
     model = CrawledOnionLinks
@@ -17,11 +18,13 @@ class CrawledOnionLinksAdmin(admin.ModelAdmin):
     search_fields = ['link']
 
 class InputLinksAdmin(admin.ModelAdmin):
+    change_list_template = 'change_list.html'
     model = InputLinks
     fields = ('name','link','visited')
     list_filter = ('visited',)
     ordering = ['created_at']
     search_fields = ['name','link']
+    list_display = ('name','link','visited','created_at')
 
 admin.site.register(ExtractedTerms,ExtractedTermsAdmin)
 admin.site.register(CrawledOnionLinks,CrawledOnionLinksAdmin)

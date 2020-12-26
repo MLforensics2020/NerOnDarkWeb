@@ -6,7 +6,12 @@ from .models import ExtractedTerms , CrawledOnionLinks , InputLinks
 from django.http import JsonResponse
 from Crawler.get_data import do_ner
 from Crawler.torcrawl import crawl
+import csv, io
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+
 from Crawler.utils import chunk
+
 class ExtractTerms(APIView):
     def get(self, request, format=None):
         """
@@ -18,6 +23,25 @@ class ExtractTerms(APIView):
                 ExtractedTerms.objects.create(Term=result.get("Term",None),Sentence=result.get("Sentence",None),Source=result.get("Source",None))
             except Exception as e:
                 print("Exception while saving term => ",e)
+        return JsonResponse({"success":True})
+
+@method_decorator(csrf_exempt, name='dispatch')
+class Add_Onion_File(APIView):
+    def post(self, request, format=None):
+        csv_file = request.FILES['file']
+        # let's check if it is a csv file
+        if not csv_file.name.endswith('.csv'):
+            return JsonResponse({"success":False,"message":'THIS IS NOT A CSV FILE'})
+        data_set = csv_file.read().decode('UTF-8')
+        # setup a stream which is when we loop through each line we are able to handle a data in a stream
+        io_string = io.StringIO(data_set)
+        next(io_string)
+        for column in csv.reader(io_string, delimiter=',', quotechar="|"):
+            InputLinks.objects.create(
+                name=column[0],
+                link=column[1],
+                visited=False
+            )
         return JsonResponse({"success":True})
 
 class RunCrawler(APIView):

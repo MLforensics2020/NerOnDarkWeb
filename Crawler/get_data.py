@@ -29,7 +29,6 @@ def do_ner():
     SOURCE_FOLDER = "Crawler/source_pages"
     files = [f for f in os.listdir(SOURCE_FOLDER)]
     #   if os.path.isfile(f) and f!='get_data.ipynb']
-    print(files)
     person_dict={'PERSON':[],'sentence':[],'page_where_occured':[]}
     finalResult = []
     for p in files :
@@ -59,6 +58,13 @@ def do_ner():
     #     if name.text.lower()=='mediolanum':
     #         print('mediolanum found')
     print("finalResult",finalResult)
+    for eachFile in files :
+        path = '{}/{}'.format(SOURCE_FOLDER,eachFile)
+        if os.path.exists(path):
+            print("File found. Deleting...")
+            os.remove(path)
+        else:
+            print("File not found at path - ",path)
     # keys = finalResult[0].keys()
     # with open('results.csv', 'w', newline='') as csv_file:  
     #     dict_writer = csv.DictWriter(csv_file,keys)

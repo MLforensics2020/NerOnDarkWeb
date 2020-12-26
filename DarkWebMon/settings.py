@@ -31,21 +31,21 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'Crawler'
+    'Crawler',
+    'django.contrib.admin'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -56,7 +56,7 @@ ROOT_URLCONF = 'DarkWebMon.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, "templates"),],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -69,8 +69,23 @@ TEMPLATES = [
     },
 ]
 
+TEMPLATE_LOADERS = "django.template.loaders.filesystem.Loader"
 WSGI_APPLICATION = 'DarkWebMon.wsgi.application'
 
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': (
+#         'rest_framework.authentication.SessionAuthentication',
+#     ),
+#     'DEFAULT_PERMISSION_CLASSES': (
+#         # 'rest_framework.permissions.AllowAny',
+#         'rest_framework.permissions.IsAuthenticated',
+#         # 'rest_framework.permissions.IsAdminUser',
+#      ),
+#     'PAGE_SIZE': 100,
+#     'DEFAULT_FILTER_BACKENDS': (
+#         'rest_framework.filters.DjangoFilterBackend',
+#     ),
+# }
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
