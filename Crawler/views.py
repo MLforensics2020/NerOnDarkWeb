@@ -14,7 +14,10 @@ class ExtractTerms(APIView):
         """
         results = do_ner()
         for result in results:
-            ExtractedTerms.objects.create(Term=result.get("Term",None),Sentence=result.get("Sentence",None),Source=result.get("Source",None))
+            try:
+                ExtractedTerms.objects.create(Term=result.get("Term",None),Sentence=result.get("Sentence",None),Source=result.get("Source",None))
+            except Exception as e:
+                print("Exception while saving term => ",e)
         return JsonResponse({"success":True})
 
 class RunCrawler(APIView):
