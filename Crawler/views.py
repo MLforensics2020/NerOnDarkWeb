@@ -14,7 +14,7 @@ class ExtractTerms(APIView):
         """
         results = do_ner()
         for result in results:
-            ExtractedTerms.objects.create(Term=results.get("Term",None),Sentence=results.get("Sentence",None),Source=results.get("Source",None))
+            ExtractedTerms.objects.create(Term=result.get("Term",None),Sentence=result.get("Sentence",None),Source=result.get("Source",None))
         return JsonResponse({"success":True})
 
 class RunCrawler(APIView):
